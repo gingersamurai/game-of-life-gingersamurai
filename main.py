@@ -61,23 +61,28 @@ class field(set):
 
     def rand_fill(self, cnt=1, min_val=0, max_val=20):
         for _ in range(cnt):
-            self.add((random.randint(min_val, max_val), random.randint(min_val, max_val)))
+            nx = (random.randint(min_val, max_val), random.randint(min_val, max_val))
+            while nx in self:
+                nx = (random.randint(min_val, max_val), random.randint(min_val, max_val))
+            self.add(nx)
 
     def simulate(self, cnt=100, bu_out = True):
         self.print_field()
         for _ in range(cnt):
-            self = self.next_gen()
-            self.print_field()
             if bu_out:
                 time.sleep(0.12)
                 os.system('cls')
+            self = self.next_gen()
+            self.print_field()
+            
         
 
 print("""
+-----------------------------
     GAME OF LIFE
 
     author: @gingersamurai
-
+-----------------------------
 """)
 game1 = field()
 mode = int(input("""
@@ -89,7 +94,17 @@ mode = int(input("""
 if mode == 1:
     cnt = int(input("enter count of cells: "))
     game1.rand_fill(cnt)
+elif mode == 2:
+    cnt = int(input("enter count of cells: "))
+    for _ in range(cnt):
+        nx = map(int, input("enter position of cell in format [a b]: ").split())
+        game1.add(tuple(nx))
 
+print("here is your field:")
+game1.print_field()
+
+go = int(input("ender count of generations: "))
+game1.simulate()
 
 
 
