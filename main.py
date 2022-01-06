@@ -59,7 +59,7 @@ class field(set):
         nself.RD = nself.get_RD()
         return nself
 
-    def rand_fill(self, cnt=1, min_val=0, max_val=20):
+    def rand_fill(self, cnt=1, min_val=0, max_val=30):
         for _ in range(cnt):
             nx = (random.randint(min_val, max_val), random.randint(min_val, max_val))
             while nx in self:
@@ -104,7 +104,7 @@ print("here is your field:")
 game1.print_field()
 
 go = int(input("ender count of generations: "))
-game1.simulate()
+game1.simulate(go)
 
 
 
